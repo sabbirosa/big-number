@@ -34,38 +34,39 @@ class MainActivity : AppCompatActivity() {
 
         val btn1: Button = findViewById(R.id.button1)
         val btn2: Button = findViewById(R.id.button2)
+
         btn1.setText(randNum1.toString())
         btn2.setText(randNum2.toString())
 
         btn1.setOnClickListener {
-            numberGeneratorAndSet(randNum1, randNum2, btn2)
-            randNum2 = (0..100).random()
-            btn1.setText(randNum2.toString())
+            numberGeneratorAndSet(btn1, btn2)
         }
 
         btn2.setOnClickListener {
-            numberGeneratorAndSet(randNum2, randNum1, btn1)
-            randNum2 = (0..100).random()
-            btn2.setText(randNum2.toString())
+            numberGeneratorAndSet(btn2, btn1)
         }
-
 
     }
 
-    fun numberGeneratorAndSet(num1: Int, num2: Int, btn: Button) {
-        if (num1 > num2) {
-            scoreVal++
-            triedVal++
+    fun numberGeneratorAndSet(btn1: Button, btn2: Button) {
+        val btn1Val = btn1.text.toString().toInt()
+        val btn2Val = btn2.text.toString().toInt()
 
+        if (btn1Val > btn2Val) {
+            scoreVal++
         } else {
             scoreVal--
-            triedVal++
         }
+
+        triedVal++
 
         scoreView.setText("Score: $scoreVal")
         triedView.setText("Tried: $triedVal")
 
         randNum1 = (0..100).random()
-        btn.setText(randNum1.toString())
+        randNum2 = (0..100).random()
+
+        btn1.setText(randNum1.toString())
+        btn2.setText(randNum2.toString())
     }
 }
